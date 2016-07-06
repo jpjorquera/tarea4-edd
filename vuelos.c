@@ -2,17 +2,17 @@
 #include <stdio.h> //xd
 
 typedef struct lista {              // Estructura lista
-    vertex *head;                   // Almacena el vertice que irá al arreglo
-    vertex *tail;                    //-------------------
-    vertex *curr;                    //--------------------
+    tNodo *head;                   // Almacena el vertice que irá al arreglo
+    tNodo *tail;                    //-------------------
+    tNodo *curr;                    //--------------------
     unsigned int tamaño;             //-----------------
     unsigned int pos                 //-------------------- posicion acutal, borrar si no lo ocupamos
 } tLista;
 
-typedef struct vertex {
+typedef struct nodo {
     unsigned long ciudad;
-    struct vertex *adyacente;
-} vertex;
+    struct nodo *adyacente;
+}tNodo;
 
 typedef struct {
     tLista vecinos;
@@ -26,11 +26,11 @@ Lista initialize(tLista lista){//head = tail = curr = NULL;
 }
 
 int insertar(tLista *lista, unsigned long elem) {
-    vertex *aux = (lista->curr)->adyacente;
-    (lista->curr)->adyacente = (vertex *) malloc(sizeof(vertex));
+    tNodo *aux = (lista->curr)->adyacente;
+    (lista->curr)->adyacente = (tNodo *) malloc(sizeof(tNodo));
     ((lista->curr)->adyacente)->ciudad = elem; ////---------------------revisar--------------
     ((lista->curr)->adyacente)->adyacente = aux;
-    if (lista->curr ==lista->tail) lista->tail = (lista->curr)->adyacente; //DECÍA ->next, creo q es error del profe
+    if (lista->curr ==lista->tail) lista->tail = (lista->curr)->next(); //DECÍA ->next, creo q es error del profe
     lista->tamaño++;
     return lista->pos;
 
