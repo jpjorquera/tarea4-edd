@@ -6,7 +6,7 @@ typedef struct {
 } tVertice;
 
 typedef struct {
-    tVertice ciudad;
+    tVertice *ciudades;
     unsigned long nCiudades;
 } tGrafo;
 
