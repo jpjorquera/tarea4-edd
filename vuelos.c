@@ -15,7 +15,7 @@ typedef struct vertex {
 } vertex;
 
 typedef struct {
-    vertex *head;
+    tLista vecinos;
 } tGrafo;
 
 Lista initialize(tLista lista){//head = tail = curr = NULL;
