@@ -1,12 +1,12 @@
 #include <stdlib.h>
 #include <stdio.h> //xd
-typedef struct node {               // Estructura nodo de lista enlazada
-    int ciudad;
-    struct node *next;
-} tNodo;
 
 typedef struct lista {              // Estructura lista
-    tNodo *head;                    // Almacena la cabeza de la lista enlazada
+    vertex *head;                   // Almacena el vertice que irá al arreglo
+    vertex *tail;                    //-------------------
+    vertex *curr;                    //--------------------
+    unsigned int tamaño;             //-----------------
+    unsigned int pos                 //-------------------- posicion acutal, borrar si no lo ocupamos
 } tLista;
 
 typedef struct vertex {
@@ -18,7 +18,13 @@ typedef struct {
     vertex *head;
 } tGrafo;
 
+Lista initialize(tLista lista){//head = tail = curr = NULL;
+    lista->head = (tNodo *)malloc(sizeof(tNodo));       // tarea2 : lista.head = (tNodo *)malloc(sizeof(tNodo));  
+    (lista->head)->(lista->adyacente) = NULL;        // tarea2 lista.head->adyacente = NULL;
+    lista->tamaño=0;
+    return lista;
+}    
 
-int maint(){
+int main(){
     return 1;
 }
