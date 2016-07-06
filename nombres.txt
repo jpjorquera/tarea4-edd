@@ -1,0 +1,5 @@
+Jorge Ignacio Contreras Cabrera, 201573547-6, Paralelo 200, funciones hundir y SacarValor.
+
+Juan Pablo Jorquera Zapata, 201573533-6, Paralelo 200, struct HeapMin; funciones: inicializar, flotar, insertHeap, freeHeap.
+
+Eliecer Marcial Zambrano Reyes, 201573540-9, Paralelo 201, main.
