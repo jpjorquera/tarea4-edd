@@ -157,7 +157,8 @@ int main(){
 	scanf("%lu", &nVuelos);
 	unsigned int partida, destino;
 	for (i=0; i<nVuelos; i++){							//Crea arcos O D
-		scanf("%du %du", &partida, &destino);
+		scanf("%du", &partida);
+		scanf("%du", &destino);
 		setEdge(vuelos, partida, destino);
 	}
 	unsigned int nConsultas;
