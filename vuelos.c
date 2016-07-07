@@ -64,6 +64,20 @@ int length(tLista *lista){
 unsigned long getValue(tLista *lista, int pos){
     return (lista->curr)->ciudad;
 }
+
+void liberar(tLista *base){
+    if (base->head->adyacente == NULL){
+        free(base->head);
+        free(base);
+        return;
+    }
+    tNodo *auxiliar = base->head;// liberar auxiliar
+    base->head = base->head->adyacente;
+    free(auxiliar);
+    liberar(base);
+
+
+}
 int main(){
     return 1;
 }
