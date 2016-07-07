@@ -26,7 +26,6 @@ int nVertex (tGrafo *G);
 unsigned long first (tGrafo *G, unsigned long ciudad);
 unsigned long nextG (tGrafo *G, unsigned long ciudad, int i);
 void setEdge (tGrafo *G, unsigned long partida, unsigned long llegada);
-int isEdge (tGrafo *G, tVertice v1, tVertice v2);
 int getMark (tGrafo *G, unsigned long ciudad);
 void setMark (tGrafo *G, unsigned long ciudad, int marca);
 void destroyGraph (tGrafo *G);
