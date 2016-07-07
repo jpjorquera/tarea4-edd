@@ -15,7 +15,6 @@ typedef struct lista {              // Estructura lista
 } tLista;
 
 typedef struct {
-    unsigned long ciudad;
     tLista destinos;
     short int visitado;
 } tVertice;
@@ -43,15 +42,19 @@ void nextL(tLista *lista) {
     }
 }
 
-int insertar(tLista *lista, unsigned long elem) { //este insert es un append???
-    tNodo *aux = (lista->curr)->adyacente;
-    (lista->curr)->adyacente = (tNodo *) malloc(sizeof(tNodo));
-    ((lista->curr)->adyacente)->ciudad = elem; ////---------------------revisar--------------
-    ((lista->curr)->adyacente)->adyacente = aux;
-    if (lista->curr == lista->tail){
-        lista->tail = (lista->curr)->adyacente;
-    } //DECÍA ->next, creo q es error del profe
-    lista->tamano++;
+int insertar(tLista *lista, unsigned long elem) {
+	if (lista->curr == lista->head){
+		lista->head->ciudad = elem;
+		lista->head->adyacente = malloc(sizeof(tNodo));
+		lista->curr = lista->head->adyacente;
+		lista->tail = lista->curr;
+	}
+	else {
+		lista->curr->ciudad = elem;
+		lista->curr = lista->curr->adyacente;
+		lista->tail = lista->curr;
+	}
+	lista->tamano++;
     return lista->pos;
 }
 
