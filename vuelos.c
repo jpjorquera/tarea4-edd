@@ -25,15 +25,27 @@ Lista initialize(tLista lista){//head = tail = curr = NULL;
     return lista;
 }
 
-int insertar(tLista *lista, unsigned long elem) {
+
+void nextL(tLista *lista) {
+    lista->curr=(lista->curr)->adyacente;
+}
+
+
+int insertar(tLista *lista, unsigned long elem) { //este insert es un append???
     tNodo *aux = (lista->curr)->adyacente;
     (lista->curr)->adyacente = (tNodo *) malloc(sizeof(tNodo));
     ((lista->curr)->adyacente)->ciudad = elem; ////---------------------revisar--------------
     ((lista->curr)->adyacente)->adyacente = aux;
-    if (lista->curr ==lista->tail) lista->tail = (lista->curr)->next(); //DECÍA ->next, creo q es error del profe
+    if (lista->curr == lista->tail){
+        lista->tail = (lista->curr)->adyacente;
+    } //DECÍA ->next, creo q es error del profe
     lista->tamaño++;
     return lista->pos;
+}
 
+int append(tLista *lista, unsigned long elem){
+    
+}
 int main(){
     return 1;
 }
