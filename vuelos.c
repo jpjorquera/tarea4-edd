@@ -190,4 +190,5 @@ int main(){
 	free(unreachables);
 	destroyGraph(vuelos);
 	free(vuelos);
+	return 1;
 }
