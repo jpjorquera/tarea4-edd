@@ -54,23 +54,35 @@ int insertar(tLista *lista, unsigned long elem) { //este insert es un append???
     return lista->pos;
 }
 
-int append(tLista *lista, unsigned long elem){
+/*void append(tLista *lista, unsigned long elem){
     tNodo *ult=(lista->tail)->adyacente;
     //arreglar esta, no cacho  q wea el tail despues.
-}
+}*/
 
 int moveToStart(tLista *lista){
     lista->curr=lista->head;
     lista->pos = 0;
     return 0;
-    
 }
+
 int length(tLista *lista){
     return lista->tamano;
 }
 
-unsigned int getValue(tLista *lista){
-    /////FALTA////
+unsigned long getValue(tLista *lista){
+    return (lista->curr)->ciudad;
+}
+
+void liberar(tLista *base){
+    if (base->head->adyacente == NULL){
+        free(base->head);
+        free(base);
+        return;
+    }
+    tNodo *auxiliar = base->head;// liberar auxiliar
+    base->head = base->head->adyacente;
+    free(auxiliar);
+    liberar(base);
 }
 
 /*Funciones tentativas*/
@@ -79,8 +91,7 @@ int append (tLista item);
 void moveToStart ();
 void nextL ();
 int length ();
-tLista getValue ();
-/*******************************/
+tLista getValue ();*/
 
 /* FUNCIONES GRAFO (JORGE) */
 void initGraph(tGrafo *G, unsigned long n){
@@ -109,7 +120,7 @@ unsigned long nextG (tGrafo *G, unsigned long ver, int i){
 
 
 void setEdge (tGrafo *G, unsigned long partida, unsigned long llegada){
-	append(&(G->ciudades[partida].destinos),llegada);
+	insertar(&(G->ciudades[partida].destinos),llegada);
 }
 
 short int getMark (tGrafo *G, unsigned long ciudad){
@@ -124,7 +135,7 @@ void destroyGraph (tGrafo *G){
 	unsigned long i;
 	unsigned long n = G->nCiudades;
 	for(i=0;i<n;i++){
-		liberar((G->ciudades[i]).destinos);
+		liberar(&(G->ciudades[i]).destinos);
 	}
 	free(G->ciudades);
 }
@@ -170,7 +181,7 @@ int main(){
 		DFS(vuelos, partida);								// Marcar visitados
 		for (j=0; j<nCiudades; j++){
 			if (getMark(vuelos, j) == 0){					// Si no ha sido visitado
-				append(unreachables, j);					// Agregar valor
+				insertar(unreachables, j);					// Agregar valor
 				unreachables->tamano++;					// actualizar tamano
 			}
 		}
@@ -180,7 +191,7 @@ int main(){
 		moveToStart(unreachables);
 		printf("%du ", unreachables[i].tamano);				// imprimir tamano
 		while (j<unreachables[i].tamano){			// continuado por valores de destinos
-			printf("%du ", getValue(unreachables));
+			printf("%lu ", getValue(unreachables));
 			nextL(unreachables);						// siguiente
 			j++;
 		}
