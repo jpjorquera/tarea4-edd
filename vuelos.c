@@ -12,14 +12,14 @@ typedef struct lista {              // Estructura lista
     tNodo *head;                   // Almacena el vertice que irá al arreglo
     tNodo *tail;                    //-------------------
     tNodo *curr;                    //--------------------
-    unsigned int tamaño;             //-----------------
+    unsigned int tamano;             //-----------------
     unsigned int pos;            //-------------------- posicion acutal, borrar si no lo ocupamos
 } tLista;
 
 tLista initialize(tLista *lista){//head = tail = curr = NULL;
     lista->head = (tNodo *)malloc(sizeof(tNodo));       // tarea2 : lista.head = (tNodo *)malloc(sizeof(tNodo));  
     (lista->head)->adyacente = NULL;        // tarea2 lista.head->adyacente = NULL;
-    lista->tamaño=0;
+    lista->tamano=0;
     return *lista;
 }
 
@@ -39,7 +39,7 @@ int insertar(tLista *lista, unsigned long elem) { //este insert es un append???
     if (lista->curr == lista->tail){
         lista->tail = (lista->curr)->adyacente;
     } //DECÍA ->next, creo q es error del profe
-    lista->tamaño++;
+    lista->tamano++;
     return lista->pos;
 }
 
@@ -58,7 +58,7 @@ int moveToStart(tLista *lista){
     
 }
 int length(tLista *lista){
-    return lista->tamaño;
+    return lista->tamano;
 }
 
 unsigned long getValue(tLista *lista, int pos){
