@@ -3,7 +3,7 @@
 typedef struct {
     unsigned long ciudad;
     struct tLista *destinos;
-    int visitado;
+    short int visitado;
 } tVertice;
 
 typedef struct {
