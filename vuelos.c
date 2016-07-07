@@ -71,7 +71,7 @@ int length(tLista *lista){
     return lista->tamaño;
 }
 
-unsigned int getValue(tLista *lista, int pos){
+unsigned int getValue(tLista *lista){
     /////FALTA////
 }
 
@@ -86,15 +86,60 @@ tLista getValue ();
 /*******************************/
 
 /* FUNCIONES GRAFO (JORGE) */
-void initGraph(tGrafo *G, int n);
-int nVertex (tGrafo *G);
-unsigned long first (tGrafo *G, unsigned long ciudad);
-unsigned long nextG (tGrafo *G, unsigned long ciudad, int i);
-void setEdge (tGrafo *G, unsigned long partida, unsigned long llegada);
-int getMark (tGrafo *G, unsigned long ciudad);
-void setMark (tGrafo *G, unsigned long ciudad, int marca);
-void destroyGraph (tGrafo *G);
-void cleanMark (tGrafo *G);
+void initGraph(tGrafo *G, unsigned long n){
+	unsigned long i;
+	G.ciudades = calloc(sizeof(tVertice),n);
+	G.nCiudades = n;
+	for(i=0;i<n;i++){
+		initialize((G->ciudades[i]).destinos);
+	}
+}
+
+int nVertex (tGrafo *G){
+	return G.nCiudades;
+}
+
+
+unsigned long first (tGrafo *G, unsigned long ver){
+	return (((G->ciudades[ver])->destinos)->head).ciudad;
+}
+
+
+unsigned long nextG (tGrafo *G, unsigned long ver, int i){
+	nextL((G->ciudades[ver])->destinos);
+	return getValue((G->ciudades[ver])->destinos);
+}
+
+
+void setEdge (tGrafo *G, unsigned long partida, unsigned long llegada){
+	append((G->ciudades[partida]->destinos),llegada);
+}
+
+short int getMark (tGrafo *G, unsigned long ciudad){
+	return (G->ciudades[ciudad]).visitado;
+}
+
+void setMark (tGrafo *G, unsigned long ciudad, int marca){
+	(G->ciudades[ciudad]).visitado = marca;
+}
+
+void destroyGraph (tGrafo *G){
+	unsigned long i;
+	int n = G.nCiudades;
+	for(i=0;i<n;i++){
+		liberar((G->ciudades[i]).destinos);
+	}
+	free(G.ciudades);
+}
+
+void cleanMark (tGrafo *G){
+	unsigned long i;
+	for(i=0;i<nVertex(G);i++){
+		setMark(G,i,0);
+	}
+	
+}
+
 /**************************/
 
 void DFS (tGrafo * G, unsigned long ciudad) {	// Marca todos los visitados con 1
