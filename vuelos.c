@@ -1,8 +1,22 @@
 #include <stdlib.h>
 #include <stdio.h>
+
+typedef struct nodo {
+	unsigned long ciudad;
+	struct nodo *adyacente;
+}tNodo;
+
+typedef struct lista {              // Estructura lista
+	tNodo *head;                   // Almacena el vertice que irá al arreglo
+	tNodo *tail;                    //-------------------
+	tNodo *curr;                    //--------------------
+	unsigned int tamano;             //-----------------
+	unsigned int pos;            //-------------------- posicion acutal, borrar si no lo ocupamos
+} tLista;
+
 typedef struct {
     unsigned long ciudad;
-    struct tLista *destinos;
+    tLista destinos;
     short int visitado;
 } tVertice;
 
@@ -12,27 +26,11 @@ typedef struct {
 } tGrafo;
 
 /* FUNCIONES LISTA ENLAZADA (ELI) */
-/*STRUCTS LISTA ENLAZADA */
-typedef struct nodo {
-    unsigned long ciudad;
-    struct nodo *adyacente;
-}tNodo;
-
-
-typedef struct lista {              // Estructura lista
-    tNodo *head;                   // Almacena el vertice que irá al arreglo
-    tNodo *tail;                    //-------------------
-    tNodo *curr;                    //--------------------
-    unsigned int tamaño;             //-----------------
-    unsigned int pos;            //-------------------- posicion acutal, borrar si no lo ocupamos
-} tLista;
-
-
 /* FUNCIONES REALES */
 tLista initialize(tLista *lista){//head = tail = curr = NULL;
     lista->head = (tNodo *)malloc(sizeof(tNodo));       // tarea2 : lista.head = (tNodo *)malloc(sizeof(tNodo));  
     (lista->head)->adyacente = NULL;        // tarea2 lista.head->adyacente = NULL;
-    lista->tamaño=0;
+    lista->tamano=0;
     return *lista;
 }
 
@@ -52,7 +50,7 @@ int insertar(tLista *lista, unsigned long elem) { //este insert es un append???
     if (lista->curr == lista->tail){
         lista->tail = (lista->curr)->adyacente;
     } //DECÍA ->next, creo q es error del profe
-    lista->tamaño++;
+    lista->tamano++;
     return lista->pos;
 }
 
@@ -68,16 +66,15 @@ int moveToStart(tLista *lista){
     
 }
 int length(tLista *lista){
-    return lista->tamaño;
+    return lista->tamano;
 }
 
 unsigned int getValue(tLista *lista){
     /////FALTA////
 }
 
-
 /*Funciones tentativas*/
-int insert (tLista item);
+/*int insert (tLista item);
 int append (tLista item);
 void moveToStart ();
 void nextL ();
@@ -88,48 +85,48 @@ tLista getValue ();
 /* FUNCIONES GRAFO (JORGE) */
 void initGraph(tGrafo *G, unsigned long n){
 	unsigned long i;
-	G.ciudades = calloc(sizeof(tVertice),n);
-	G.nCiudades = n;
+	G->ciudades = calloc(sizeof(tVertice),n);
+	G->nCiudades = n;
 	for(i=0;i<n;i++){
-		initialize((G->ciudades[i]).destinos);
+		initialize(&(G->ciudades[i]).destinos);
 	}
 }
 
-int nVertex (tGrafo *G){
-	return G.nCiudades;
+unsigned long nVertex (tGrafo *G){
+	return G->nCiudades;
 }
 
 
 unsigned long first (tGrafo *G, unsigned long ver){
-	return (((G->ciudades[ver])->destinos)->head).ciudad;
+	return (((G->ciudades[ver]).destinos).head)->ciudad;
 }
 
 
 unsigned long nextG (tGrafo *G, unsigned long ver, int i){
-	nextL((G->ciudades[ver])->destinos);
-	return getValue((G->ciudades[ver])->destinos);
+	nextL(&(G->ciudades[ver]).destinos);
+	return getValue(&(G->ciudades[ver]).destinos);
 }
 
 
 void setEdge (tGrafo *G, unsigned long partida, unsigned long llegada){
-	append((G->ciudades[partida]->destinos),llegada);
+	append(&(G->ciudades[partida].destinos),llegada);
 }
 
 short int getMark (tGrafo *G, unsigned long ciudad){
 	return (G->ciudades[ciudad]).visitado;
 }
 
-void setMark (tGrafo *G, unsigned long ciudad, int marca){
+void setMark (tGrafo *G, unsigned long ciudad, short int marca){
 	(G->ciudades[ciudad]).visitado = marca;
 }
 
 void destroyGraph (tGrafo *G){
 	unsigned long i;
-	int n = G.nCiudades;
+	unsigned long n = G->nCiudades;
 	for(i=0;i<n;i++){
 		liberar((G->ciudades[i]).destinos);
 	}
-	free(G.ciudades);
+	free(G->ciudades);
 }
 
 void cleanMark (tGrafo *G){
