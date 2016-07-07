@@ -28,6 +28,7 @@ Lista initialize(tLista lista){//head = tail = curr = NULL;
 
 void nextL(tLista *lista) {
     lista->curr=(lista->curr)->adyacente;
+    (lista->pos)++ //REVISAR
 }
 
 
@@ -44,7 +45,22 @@ int insertar(tLista *lista, unsigned long elem) { //este insert es un append???
 }
 
 int append(tLista *lista, unsigned long elem){
+    tNodo *ult=(lista->tail)->adyacente;
+    //arreglar esta, no cacho  q wea el tail despues.
+}
+
+int moveToStart(tLista *lista){
+    lista->curr=lista->head;
+    lista->pos = 0;
+    return 0;
     
+}
+int length(tLista *lista){
+    return lista->tamaño
+}
+
+unsigned int getValue(tLista *lista, int pos){
+    /////FALTA////
 }
 int main(){
     return 1;
