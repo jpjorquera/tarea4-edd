@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include <stdio.h>
+#include <stdio.h>//nada
 
 typedef struct nodo {
 	unsigned long ciudad;
