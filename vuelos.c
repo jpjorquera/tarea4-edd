@@ -171,21 +171,23 @@ int main(){
 		for (j=0; j<nCiudades; j++){
 			if (getMark(vuelos, j) == 0){					// Si no ha sido visitado
 				append(unreachables, j);					// Agregar valor
-				unreachables[i].(tamano++);					// actualizar tamano
+				unreachables->tamano++;					// actualizar tamano
 			}
 		}
 		cleanMark(vuelos);									// Reiniciar marcas
 	}
 	for (i=0; i<nConsultas; i++){							// Iterar sobre inalcanzables
-		moveToStart(unreachables[i]);
-		printf("%lu ", unreachables[i].tamano);				// imprimir tamano
-		while (j<unreachables[i].tamano;){			// continuado por valores de destinos
-			printf("%du ", getValue(unreachables[i]));
-			nextL(unreachables[i]);						// siguiente
+		moveToStart(unreachables);
+		printf("%du ", unreachables[i].tamano);				// imprimir tamano
+		while (j<unreachables[i].tamano){			// continuado por valores de destinos
+			printf("%du ", getValue(unreachables));
+			nextL(unreachables);						// siguiente
 			j++;
 		}
 		printf("\n");
 	}
 	liberar(unreachables);						// Liberar memoria
+	free(unreachables);
 	destroyGraph(vuelos);
+	free(vuelos);
 }
