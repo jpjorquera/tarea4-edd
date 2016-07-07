@@ -30,6 +30,7 @@ typedef struct {
 tLista initialize(tLista *lista){//head = tail = curr = NULL;
     lista->head = (tNodo *)malloc(sizeof(tNodo));       // tarea2 : lista.head = (tNodo *)malloc(sizeof(tNodo));  
     (lista->head)->adyacente = NULL;        // tarea2 lista.head->adyacente = NULL;
+	lista->curr = lista->head;
     lista->tamano=0;
     return *lista;
 }
@@ -65,10 +66,6 @@ int moveToStart(tLista *lista){
     return 0;
 }
 
-int length(tLista *lista){
-    return lista->tamano;
-}
-
 unsigned long getValue(tLista *lista){
     return (lista->curr)->ciudad;
 }
@@ -84,14 +81,6 @@ void liberar(tLista *base){
     free(auxiliar);
     liberar(base);
 }
-
-/*Funciones tentativas*/
-/*int insert (tLista item);
-int append (tLista item);
-void moveToStart ();
-void nextL ();
-int length ();
-tLista getValue ();*/
 
 /* FUNCIONES GRAFO (JORGE) */
 void initGraph(tGrafo *G, unsigned long n){
@@ -113,7 +102,7 @@ unsigned long first (tGrafo *G, unsigned long ver){
 }
 
 
-unsigned long nextG (tGrafo *G, unsigned long ver, int i){
+unsigned long nextG (tGrafo *G, unsigned long ver){
 	nextL(&(G->ciudades[ver]).destinos);
 	return getValue(&(G->ciudades[ver]).destinos);
 }
@@ -153,7 +142,7 @@ void cleanMark (tGrafo *G){
 void DFS (tGrafo * G, unsigned long ciudad) {	// Marca todos los visitados con 1
 	unsigned long destino;
 	setMark(G, ciudad, 1);						// Visitado = True
-	for (destino = first(G, ciudad); destino < nVertex(G); destino = nextG(G, ciudad, destino)){
+	for (destino = first(G, ciudad); destino < nVertex(G); destino = nextG(G, ciudad)){
 		if (getMark(G, destino) == 0){
 			DFS(G, destino);
 		}
@@ -187,9 +176,11 @@ int main(){
 		}
 		cleanMark(vuelos);									// Reiniciar marcas
 	}
+	printf("%du \n", nConsultas);
 	for (i=0; i<nConsultas; i++){							// Iterar sobre inalcanzables
 		moveToStart(unreachables);
 		printf("%du ", unreachables[i].tamano);				// imprimir tamano
+		j = 0;
 		while (j<unreachables[i].tamano){			// continuado por valores de destinos
 			printf("%lu ", getValue(unreachables));
 			nextL(unreachables);						// siguiente
