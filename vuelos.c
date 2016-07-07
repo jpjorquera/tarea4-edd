@@ -143,6 +143,9 @@ void cleanMark (tGrafo *G){
 /**************************/
 
 void DFS (tGrafo * G, unsigned long ciudad) {	// Marca todos los visitados con 1
+	if (getMark(G, ciudad)==1){
+		return;
+	}
 	unsigned long destino;
 	setMark(G, ciudad, 1);						// Visitado = True
 	for (destino = first(G, ciudad); destino < nVertex(G); destino = nextG(G, ciudad)){
