@@ -51,6 +51,7 @@ int insertar(tLista *lista, unsigned long elem) {
 	}
 	else {
 		lista->curr->ciudad = elem;
+		lista->curr->adyacente = malloc(sizeof(tNodo));
 		lista->curr = lista->curr->adyacente;
 		lista->tail = lista->curr;
 	}
@@ -107,8 +108,11 @@ unsigned long first (tGrafo *G, unsigned long ver){
 
 
 unsigned long nextG (tGrafo *G, unsigned long ver){
-	nextL(&(G->ciudades[ver]).destinos);
-	return getValue(&(G->ciudades[ver]).destinos);
+	if (G->ciudades[ver].destinos.pos < G->ciudades[ver].destinos.tamano){
+		nextL(&(G->ciudades[ver]).destinos);
+		return getValue(&(G->ciudades[ver]).destinos);
+	}
+	else return 0;
 }
 
 
@@ -175,14 +179,13 @@ int main(){
 	unsigned long j;
 	scanf("%du", &nConsultas);
 	tLista *unreachables = malloc(sizeof(tLista) * nConsultas);		// Lista con punteros de inalcanzables
-	initialize(unreachables);
 	for (i=0; i<nConsultas; i++){
+		initialize(&unreachables[i]);
 		scanf("%du", &partida);
 		DFS(vuelos, partida);								// Marcar visitados
 		for (j=0; j<nCiudades; j++){
 			if (getMark(vuelos, j) == 0){					// Si no ha sido visitado
-				insertar(unreachables, j);					// Agregar valor
-				unreachables->tamano++;					// actualizar tamano
+				insertar(&unreachables[i], j);					// Agregar valor
 			}
 		}
 		cleanMark(vuelos);									// Reiniciar marcas
