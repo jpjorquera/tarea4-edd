@@ -198,7 +198,9 @@ int main(){
 		}
 		printf("\n");
 	}
-	liberar(unreachables);						// Liberar memoria
+	for (i=0; i<nConsultas; i++) {
+		liberar(&unreachables[i]);                        // Liberar memoria
+	}
 	free(unreachables);
 	destroyGraph(vuelos);
 	free(vuelos);
