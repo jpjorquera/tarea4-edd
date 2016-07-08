@@ -101,6 +101,7 @@ unsigned long nVertex (tGrafo *G){
 
 
 unsigned long first (tGrafo *G, unsigned long ver){
+	moveToStart(&G->ciudades[ver].destinos);
 	return (((G->ciudades[ver]).destinos).head)->ciudad;
 }
 
