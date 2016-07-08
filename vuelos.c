@@ -141,6 +141,18 @@ void liberar(tLista *base){
     liberar(base);				// Liberar siguiente recursivo
 }
 
+/*****
+*   void initGraph
+******
+*   Inicializa un grafo para n vertices
+******
+*	Input:
+*		tGrafo * G : grafo que se desea inicializar
+*		unsigned long n : cantidad de vertcies del grafo
+******
+*   Returns:
+*   	void
+* *****/
 
 void initGraph(tGrafo *G, unsigned long n){
 	unsigned long i;
@@ -151,46 +163,140 @@ void initGraph(tGrafo *G, unsigned long n){
 	}
 }
 
+/*****
+*   unsigned long nVertex
+******
+*   Retorna el numero de vertices en el grafo
+******
+*	Input:
+*		tGrafo * G : grafo al que se desea saber su cantidad de vertices 
+******
+*   Returns:
+*   	unsigned long, retorna la cantidad de vertices
+* *****/
 unsigned long nVertex (tGrafo *G){
 	return G->nCiudades;
 }
 
-
+/*****
+*   unsigned long first
+******
+*   Devuelve el primer vecino de un vertice ver dado
+******
+*	Input:
+*		tGrafo * G : grafo en el cual se encuentran los vertices a trabajar
+*		unsigned long ver : posicion del vertice al cual se le desea saber su primer veciono
+******
+*   Returns:
+*   	unsigned long, retorna el valor(posicion) del primer vertice vecino
+* *****/
 unsigned long first (tGrafo *G, unsigned long ver){
 	moveToStart(&G->ciudades[ver].destinos);
-	return (((G->ciudades[ver]).destinos).head)->ciudad;
+	return (((G->ciudades[ver]).destinos).head)->ciudad;    //retorna el primer valor de la lista enlazada
 }
 
-
+/*****
+*   unsigned long first
+******
+*   Devuelve el vecino siguiente al actual(current)
+******
+*	Input:
+*		tGrafo * G : grafo en el cual se encuentran los vertices a trabajar
+*		unsigned long ver : posicion vertice al cual se le desea saber su siguiente vecino
+******
+*   Returns:
+*   	unsigned long, retorna el valor(posicion) del vertice siguiente al actual
+* *****/
 unsigned long nextG (tGrafo *G, unsigned long ver){
-	if (G->ciudades[ver].destinos.pos < G->ciudades[ver].destinos.tamano){
-		nextL(&(G->ciudades[ver]).destinos);
+	if (G->ciudades[ver].destinos.pos < G->ciudades[ver].destinos.tamano){       //comprueba que no se haya llegado al final de la lista
+		nextL(&(G->ciudades[ver]).destinos);                                     //lleva el valor actual de la lista, al siguiente
 		return getValue(&(G->ciudades[ver]).destinos);
 	}
 	else return 0;
 }
 
-
+/*****
+*   void setEdge
+******
+*   Agrega un nuevo arco al grafo dirigido desde partida hasta llegada 
+******
+*	Input:
+*		tGrafo * G : grafo en el cual se encuentran los vertices a trabajar
+*		unsigned long partida : posicion del vertice del cual surge el nuevo arco
+*		unsigned long llegada : posicion del vertice al cual llega el nuevo arco
+******
+*   Returns:
+*   	void
+* *****/
 void setEdge (tGrafo *G, unsigned long partida, unsigned long llegada){
 	insertar(&(G->ciudades[partida].destinos),llegada);
 }
+
+/*****
+*   short in getMark
+******
+*   Obtiene la marca asignada a un vertice dado
+******
+*	Input:
+*		tGrafo * G : grafo en el cual se encuentra el vertice a trabajar
+*		unsigned long ciudad : posicion del vertice que se desea obtener la marca
+******
+*   Returns:
+*   	short int, devuelve 0(si no esta visitado) o 1(si esta visitado)
+* *****/
 
 short int getMark (tGrafo *G, unsigned long ciudad){
 	return (G->ciudades[ciudad]).visitado;
 }
 
+/*****
+*   short in setMark
+******
+*   Marca un vertice con un valor dado
+******
+*	Input:
+*		tGrafo * G : grafo en el cual se encuentra el vertice a trabajar
+*		unsigned long ciudad : posicion del vertice que se desea marcar
+*		short int marca : marca que se desea ingresar al vertice, 0(no visitado) o 1(visitado) 
+******
+*   Returns:
+*   	void
+* *****/
 void setMark (tGrafo *G, unsigned long ciudad, short int marca){
 	(G->ciudades[ciudad]).visitado = marca;
 }
 
+/*****
+*   void destroyGraph
+******
+*   Libera la memoria utilizada por un grafo
+******
+*	Input:
+*		tGrafo * G : grafo que se desea liberar
+******
+*   Returns:
+*   	void
+* *****/
 void destroyGraph (tGrafo *G){
 	unsigned long i;
 	unsigned long n = G->nCiudades;
-	for(i=0;i<n;i++){
-		liberar(&(G->ciudades[i]).destinos);
+	for(i=0;i<n;i++){                                  //itera por todos los vertices
+		liberar(&(G->ciudades[i]).destinos);           //libera las lista enlazada del vertice actual
 	}
 	free(G->ciudades);
 }
+
+/*****
+*   void cleanMark
+******
+*   Borra todas las marcas de todos los vertices del grafo (borrar: dejarlas en 0-no visitado-)
+******
+*	Input:
+*		tGrafo * G : grafo que se desea borrar las marcas
+******
+*   Returns:
+*   	void
+* *****/
 
 void cleanMark (tGrafo *G){
 	unsigned long i;
@@ -213,6 +319,7 @@ void cleanMark (tGrafo *G){
 *   Returns:
 *   	void
 * *****/
+
 void DFS (tGrafo * G, unsigned long ciudad) {
 	if (getMark(G, ciudad)==1){			// Caso base, si ya ha sido visitado
 		return;							// terminar
