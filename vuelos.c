@@ -148,7 +148,6 @@ void cleanMark (tGrafo *G){
 /**************************/
 
 void DFS (tGrafo * G, unsigned long ciudad) {	// Marca todos los visitados con 1
-	int visitado = getMark(G, ciudad);
 	if (getMark(G, ciudad)==1){
 		return;
 	}
@@ -203,7 +202,6 @@ int main(){
 		printf("\n");
 	}
 	liberar(unreachables);						// Liberar memoria
-	free(unreachables);
 	destroyGraph(vuelos);
 	free(vuelos);
 	return 1;
