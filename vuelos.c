@@ -143,15 +143,18 @@ void cleanMark (tGrafo *G){
 /**************************/
 
 void DFS (tGrafo * G, unsigned long ciudad) {	// Marca todos los visitados con 1
+	int visitado = getMark(G, ciudad);
 	if (getMark(G, ciudad)==1){
 		return;
 	}
 	unsigned long destino;
 	setMark(G, ciudad, 1);						// Visitado = True
-	for (destino = first(G, ciudad); destino < nVertex(G); destino = nextG(G, ciudad)){
+	unsigned long i = 0;
+	for (destino = first(G, ciudad); i<(G->ciudades[ciudad].destinos.tamano); destino = nextG(G, ciudad)){
 		if (getMark(G, destino) == 0){
 			DFS(G, destino);
 		}
+		i++;
 	}
 }
 
