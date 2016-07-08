@@ -153,7 +153,6 @@ void liberar(tLista *base){
 *   Returns:
 *   	void
 * *****/
-
 void initGraph(tGrafo *G, unsigned long n){
 	unsigned long i;
 	G->ciudades = calloc(sizeof(tVertice),n);
@@ -196,7 +195,7 @@ unsigned long first (tGrafo *G, unsigned long ver){
 }
 
 /*****
-*   unsigned long first
+*   unsigned long nextG
 ******
 *   Devuelve el vecino siguiente al actual(current)
 ******
@@ -244,13 +243,12 @@ void setEdge (tGrafo *G, unsigned long partida, unsigned long llegada){
 *   Returns:
 *   	short int, devuelve 0(si no esta visitado) o 1(si esta visitado)
 * *****/
-
 short int getMark (tGrafo *G, unsigned long ciudad){
 	return (G->ciudades[ciudad]).visitado;
 }
 
 /*****
-*   short in setMark
+*   void setMark
 ******
 *   Marca un vertice con un valor dado
 ******
@@ -297,7 +295,6 @@ void destroyGraph (tGrafo *G){
 *   Returns:
 *   	void
 * *****/
-
 void cleanMark (tGrafo *G){
 	unsigned long i;
 	for(i=0;i<nVertex(G);i++){
