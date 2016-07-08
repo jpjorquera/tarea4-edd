@@ -192,12 +192,12 @@ int main(){
 	}
 	printf("%u \n", nConsultas);
 	for (i=0; i<nConsultas; i++){							// Iterar sobre inalcanzables
-		moveToStart(unreachables);
+		moveToStart(&unreachables[i]);
 		printf("%u ", unreachables[i].tamano);				// imprimir tamano
 		j = 0;
 		while (j<unreachables[i].tamano){			// continuado por valores de destinos
-			printf("%lu ", getValue(unreachables));
-			nextL(unreachables);						// siguiente
+			printf("%lu ", getValue(&unreachables[i]));
+			nextL(&unreachables[i]);						// siguiente
 			j++;
 		}
 		printf("\n");
