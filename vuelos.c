@@ -42,7 +42,7 @@ void nextL(tLista *lista) {
     }
 }
 
-int insertar(tLista *lista, unsigned long elem) {
+void insertar(tLista *lista, unsigned long elem) {
 	if (lista->curr == lista->head){
 		lista->head->ciudad = elem;
 		lista->head->adyacente = malloc(sizeof(tNodo));
@@ -56,7 +56,6 @@ int insertar(tLista *lista, unsigned long elem) {
 		lista->tail = lista->curr;
 	}
 	lista->tamano++;
-    return lista->pos;
 }
 
 /*void append(tLista *lista, unsigned long elem){
@@ -75,9 +74,7 @@ unsigned long getValue(tLista *lista){
 }
 
 void liberar(tLista *base){
-    if (base->head->adyacente == NULL){
-        free(base->head);
-        free(base);
+    if (base->head == NULL){
         return;
     }
     tNodo *auxiliar = base->head;// liberar auxiliar
@@ -202,6 +199,7 @@ int main(){
 		printf("\n");
 	}
 	liberar(unreachables);						// Liberar memoria
+	free(unreachables);
 	destroyGraph(vuelos);
 	free(vuelos);
 	return 1;
