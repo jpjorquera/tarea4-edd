@@ -171,17 +171,17 @@ int main(){
 	scanf("%lu", &nVuelos);
 	unsigned int partida, destino;
 	for (i=0; i<nVuelos; i++){							//Crea arcos O D
-		scanf("%du", &partida);
-		scanf("%du", &destino);
+		scanf("%u", &partida);
+		scanf("%u", &destino);
 		setEdge(vuelos, partida, destino);
 	}
 	unsigned int nConsultas;
 	unsigned long j;
-	scanf("%du", &nConsultas);
+	scanf("%u", &nConsultas);
 	tLista *unreachables = malloc(sizeof(tLista) * nConsultas);		// Lista con punteros de inalcanzables
 	for (i=0; i<nConsultas; i++){
 		initialize(&unreachables[i]);
-		scanf("%du", &partida);
+		scanf("%u", &partida);
 		DFS(vuelos, partida);								// Marcar visitados
 		for (j=0; j<nCiudades; j++){
 			if (getMark(vuelos, j) == 0){					// Si no ha sido visitado
@@ -190,10 +190,10 @@ int main(){
 		}
 		cleanMark(vuelos);									// Reiniciar marcas
 	}
-	printf("%du \n", nConsultas);
+	printf("%u \n", nConsultas);
 	for (i=0; i<nConsultas; i++){							// Iterar sobre inalcanzables
 		moveToStart(unreachables);
-		printf("%du ", unreachables[i].tamano);				// imprimir tamano
+		printf("%u ", unreachables[i].tamano);				// imprimir tamano
 		j = 0;
 		while (j<unreachables[i].tamano){			// continuado por valores de destinos
 			printf("%lu ", getValue(unreachables));
