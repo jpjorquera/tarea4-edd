@@ -45,13 +45,13 @@ void nextL(tLista *lista) {
 void insertar(tLista *lista, unsigned long elem) {
 	if (lista->curr == lista->head){
 		lista->head->ciudad = elem;
-		lista->head->adyacente = malloc(sizeof(tNodo));
+		lista->head->adyacente = calloc(sizeof(tNodo), 1);
 		lista->curr = lista->head->adyacente;
 		lista->tail = lista->curr;
 	}
 	else {
 		lista->curr->ciudad = elem;
-		lista->curr->adyacente = malloc(sizeof(tNodo));
+		lista->curr->adyacente = calloc(sizeof(tNodo), 1);
 		lista->curr = lista->curr->adyacente;
 		lista->tail = lista->curr;
 	}
