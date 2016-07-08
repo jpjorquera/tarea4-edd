@@ -1,5 +1,5 @@
-Jorge Ignacio Contreras Cabrera, 201573547-6, Paralelo 200, funciones hundir y SacarValor.
+Jorge Ignacio Contreras Cabrera, 201573547-6, Paralelo 200, funciones grafo: initGraph, nVertex, first, nextG, setEdge, getMark, setMark, destroyGraph, cleanMark.
 
-Juan Pablo Jorquera Zapata, 201573533-6, Paralelo 200, struct HeapMin; funciones: inicializar, flotar, insertHeap, freeHeap.
+Juan Pablo Jorquera Zapata, 201573533-6, Paralelo 200, structs a trabajar: tNodo, tLista, tVertice, tGrafo; funcion DFS; main.
 
-Eliecer Marcial Zambrano Reyes, 201573540-9, Paralelo 201, main.
+Eliecer Marcial Zambrano Reyes, 201573540-9, Paralelo 201, funciones lista enlazada: initialize, nextL, insertar, moveToStart, getValue, liberar.
